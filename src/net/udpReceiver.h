@@ -1,12 +1,15 @@
-#pragma once
+#ifndef UDP_RECEIVER_H
+#define UDP_RECEIVER_H
 
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 
 #include "net/globals.h"
 
-class UDPReceiver {
+class UDPReceiver 
+{
     public:
+        UDPReceiver(); //def ctor
         UDPReceiver(boost::asio::io_service& io_service, const std::string& addr);
 
     protected:
@@ -20,3 +23,4 @@ class UDPReceiver {
         boost::asio::ip::udp::endpoint m_remote;
         char m_buffer[SOCK_BUFFER_SIZE];
 };
+#endif // !UDP_RECEIVER_H

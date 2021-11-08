@@ -1,7 +1,6 @@
 #include "monthlyReport.h"
 
-MonthlyReport::MonthlyReport(const std::string& name,
-    Database* db,
+MonthlyReport::MonthlyReport(const std::string& name, Database* db,
     boost::asio::io_service& io_service) : IncrementalPeriodicReport(name, db, io_service)
 {
 }
@@ -40,7 +39,7 @@ void MonthlyReport::calc_period_string()
 {
     time_t rawtime;
     time(&rawtime);
-    auto timeinfo = localtime(&rawtime);
+    auto timeinfo = std::localtime(&rawtime);
 
     char buffer[8];
     strftime(buffer, 8, "%Y%b", timeinfo);

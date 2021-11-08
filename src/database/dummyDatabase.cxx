@@ -2,9 +2,10 @@
 
 #include <iostream>
 
-class DummyDatabase : public Database {
+class DummyDatabase : public Database 
+{
     public:
-        DummyDatabase()
+        DummyDatabase() : Database()
         {
         }
 

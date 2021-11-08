@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     std::string db_prefix = "tlopo_stats_test";
     int db_port = 6379;
 
-    for (int i = 1; i < argc; i++)
+    for (int i = 1; i < argc; ++i)
     {
         if (strcmp(argv[i], "--dummy-db") == 0)
         {

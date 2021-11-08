@@ -5,8 +5,11 @@
 #include <iostream>
 #include <time.h>
 
-EventCollector::EventCollector(boost::asio::io_service& io_service,
-                               const std::string& addr) : JSONUDPReceiver(io_service, addr)
+EventCollector::EventCollector()
+{
+}
+
+EventCollector::EventCollector(boost::asio::io_service& io_service, const std::string& addr) : JSONUDPReceiver(io_service, addr)
 {
 }
 

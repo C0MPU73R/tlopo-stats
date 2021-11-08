@@ -10,6 +10,7 @@
 class StatCollectorBase : private EventListener
 {
     public:
+        StatCollectorBase();
         StatCollectorBase(const std::string& name, const std::string& event, Database* db);
         virtual ~StatCollectorBase();
 

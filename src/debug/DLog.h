@@ -1,10 +1,11 @@
-#pragma once
+#ifndef DLOG_H
+#define DLOG_H
 
-#include <fstream>
+#include <ofstream>
 #include <iostream>
-using namespace std;
 
-class DLog {
+class DLog 
+{
     public:
         explicit DLog ()
         {
@@ -14,16 +15,19 @@ class DLog {
         template<typename T> 
         DLog& operator<< (const T& data) 
         {
-            ofstream outfile;
+            std::ofstream outfile;
             outfile.open("log.txt", ios_base::app);
-            if (outfile.is_open()) {
+            if (outfile.is_open()) 
+            {
                 outfile << data << "\n";
             }
+            outfile.close();
         }
 
-        DLog (const DLog &) = delete;
-        DLog &operator= (const DLog &) = delete;
+        DLog (const DLog&) = delete;
+        DLog &operator= (const DLog&) = delete;
 
     private:
         std::string filename;
 };
+#endif // !DLOG_H

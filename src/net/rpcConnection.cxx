@@ -6,7 +6,6 @@
 
 #include <jansson.h>
 
-#include <iostream>
 
 RPCConnection::RPCConnection(tcp::socket* socket) : m_socket(socket), m_buffer(SOCK_BUFFER_SIZE)
 {
@@ -14,6 +13,10 @@ RPCConnection::RPCConnection(tcp::socket* socket) : m_socket(socket), m_buffer(S
                      '\n', boost::bind(&RPCConnection::handle_read, this,
                                       boost::asio::placeholders::error,
                                       boost::asio::placeholders::bytes_transferred));
+}
+
+RPCConnection::~RPCConnection()
+{
 }
 
 void RPCConnection::handle_read(const boost::system::error_code& ec, size_t bytes)

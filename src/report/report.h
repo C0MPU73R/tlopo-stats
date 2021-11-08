@@ -1,15 +1,17 @@
-#pragma once
+#ifndef REPORT_H
+#define REPORT_H
+
 
 #include "database/database.h"
 
 #include <boost/asio.hpp>
 #include <string>
 
-class Report {
+class Report 
+{
     public:
         Report(const std::string& name, Database* db, boost::asio::io_service& io_service);
         virtual ~Report();
-
         virtual void start() = 0;
         virtual std::string get_collection_name();
 
@@ -19,3 +21,4 @@ class Report {
         Database* m_db;
         boost::asio::deadline_timer m_timer;
 };
+#endif // !REPORT_H

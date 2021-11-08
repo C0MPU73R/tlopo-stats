@@ -8,4 +8,11 @@ build/
 *.exp
 *.lib
 
+# MacOS
 .DS_Store
+
+# Edtiors
+.idea/
+.vs/
+.suo/
+

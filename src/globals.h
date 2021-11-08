@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GLOBALS_H
+#define GLOBALS_H
+
 
 typedef unsigned int doid_t;
 
@@ -8,3 +10,6 @@ typedef unsigned int doid_t;
 #define EVENT_LEADERBOARD_BAN "LEADERBOARD_BAN"
 
 #define INF 0xFFFFFFFF
+
+
+#endif // !GLOBALS_H

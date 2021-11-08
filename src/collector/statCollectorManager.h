@@ -1,10 +1,13 @@
-#pragma once
+#ifndef STAT_COLLECTOR_MANAGER_H
+#define STAT_COLLECTOR_MANAGER_H
+
 
 #include "database/database.h"
 
 #include <jansson.h>
 
-class StatCollectorManager final {
+class StatCollectorManager final 
+{
     public:
         void init(Database* db, boost::asio::io_service& io_service);
 
@@ -38,3 +41,5 @@ class StatCollectorManager final {
 
     friend class CachedStatCollectorMap;
 };
+#endif // !STAT_COLLECTOR_MANAGER_H
+

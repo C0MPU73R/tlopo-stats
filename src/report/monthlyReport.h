@@ -1,11 +1,12 @@
 #pragma once
 
+#include <time.h>
 #include "incrementalPeriodicReport.h"
 
-class MonthlyReport : public IncrementalPeriodicReport {
+class MonthlyReport : public IncrementalPeriodicReport 
+{
     public:
-        MonthlyReport(const std::string& name, Database* db,
-                      boost::asio::io_service& io_service);
+        MonthlyReport(const std::string& name, Database* db, boost::asio::io_service& io_service);
         virtual ~MonthlyReport();
 
     protected:

@@ -1,5 +1,10 @@
 #include "statCollectorBase.h"
 
+
+StatCollectorBase::StatCollectorBase()
+{
+}
+
 StatCollectorBase::StatCollectorBase(const std::string& name,
     const std::string& event, Database* db) : m_name(name),
     m_event(event), m_db(db)

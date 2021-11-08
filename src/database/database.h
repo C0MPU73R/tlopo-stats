@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DATABASE_H
+#define DATABASE_H
+
 
 #include "globals.h"
 
@@ -6,15 +8,17 @@
 
 #include <unordered_map>
 #include <unordered_set>
+
 #include <string>
 
-class StatCollectorBase; // fwd decl
+#include "collector/statCollectorBase.h"
 
 typedef std::unordered_map<std::string, StatCollectorBase*> collector_map_t;
 typedef std::unordered_set<doid_t> doid_list_t;
 typedef std::unordered_map<doid_t, doid_t> guild_map_t;
 
-class Database {
+class Database 
+{
     public:
         Database();
         virtual ~Database();
@@ -41,8 +45,13 @@ class Database {
         virtual void set_highscore_entry(const std::string& collection,
                                          doid_t key,
                                          long value) = 0;
-};
 
-Database* get_dummy_db();
-Database* get_redis_db(const std::string& addr, int port,
-                       const std::string& prefix);
+private:
+    Database* get_dummy_db();
+    Database* get_redis_db(const std::string& addr, int port,
+        const std::string& prefix);
+};
+#endif // !DATABASE_H
+
+
+

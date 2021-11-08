@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EVENT_MANAGER_H
+#define EVENT_MANAGER_H
 
 #include "globals.h"
 
@@ -19,7 +20,8 @@ typedef struct
 
 typedef std::function<void(const Event&)> event_callback_t;
 
-class EventManager final {
+class EventManager final 
+{
     public:
         void send(const Event& event);
         void listen(const std::string& event_type,
@@ -37,3 +39,5 @@ class EventManager final {
         typedef std::vector<std::pair<std::string, event_callback_t>> callbacks_t;
         std::unordered_map<const EventListener*, callbacks_t> m_events; // {listener: [(event, callback)]}
 };
+#endif // !EVENT_MANAGER_H
+

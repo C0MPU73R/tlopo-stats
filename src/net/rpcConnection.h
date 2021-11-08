@@ -7,6 +7,7 @@ class RPCConnection final
 {
     public:
         RPCConnection(tcp::socket* socket);
+        virtual ~RPCConnection();
 
     private:
         void handle_read(const boost::system::error_code& ec, size_t bytes);

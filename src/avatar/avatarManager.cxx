@@ -10,20 +10,23 @@ void AvatarManager::init(Database* db)
 {
     db->get_guild_map(m_guild_ids);
 
-    listen(EVENT_AV_ONLINE, [this](const Event& e) {
+    listen(EVENT_AV_ONLINE, [this](const Event& e) 
+        {
         doid_t avId = e.doIds[0];
         m_guild_ids[avId] = 0;
-    });
-    listen(EVENT_AV_GUILD, [this, db](const Event& e) {
+        });
+    listen(EVENT_AV_GUILD, [this, db](const Event& e) 
+        {
         doid_t avId = e.doIds[0];
         doid_t guildId = (doid_t)e.value;
         m_guild_ids[avId] = guildId;
         db->add_to_guild_map(avId, guildId);
-    });
-    listen(EVENT_AV_OFFLINE, [this](const Event& e) {
+        });
+    listen(EVENT_AV_OFFLINE, [this](const Event& e) 
+        {
         doid_t avId = e.doIds[0];
         m_guild_ids.erase(avId);
-    });
+        });
 }
 
 doid_t AvatarManager::get_guild_id(doid_t avId)

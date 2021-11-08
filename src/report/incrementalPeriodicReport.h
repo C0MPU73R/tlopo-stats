@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INCREMENTAL_PERIODIC_REPORT_H
+#define INCREMENTAL_PERIODIC_REPORT_H
 
 #include "event/eventListener.h"
 #include "report.h"
@@ -6,10 +7,11 @@
 
 #include <unordered_map>
 
-class IncrementalPeriodicReport : public Report {
+class IncrementalPeriodicReport : public Report 
+{
     public:
-        IncrementalPeriodicReport(const std::string& name, Database* db,
-                                  boost::asio::io_service& io_service);
+        IncrementalPeriodicReport(const std::string& name, Database* db, boost::asio::io_service& io_service);
+
         virtual ~IncrementalPeriodicReport();
 
         virtual void start();
@@ -26,3 +28,5 @@ class IncrementalPeriodicReport : public Report {
     private:
         void rotate(const boost::system::error_code& e);
 };
+#endif // !INCREMENTAL_PERIODIC_REPORT_H
+

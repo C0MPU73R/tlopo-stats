@@ -1,8 +1,6 @@
 #include "yearlyReport.h"
 
-YearlyReport::YearlyReport(const std::string& name,
-    Database* db,
-    boost::asio::io_service& io_service) : IncrementalPeriodicReport(name, db, io_service)
+YearlyReport::YearlyReport(const std::string& name, Database* db, boost::asio::io_service& io_service) : IncrementalPeriodicReport(name, db, io_service)
 {
 }
 

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STAT_COLLECTOR_BASE_H
+#define STAT_COLLECTOR_BASE_H
 
 #include "statCollectorBase.h"
 
@@ -21,3 +22,4 @@ class StatCollector : public StatCollectorBase
 
         unsigned int m_period;
 };
+#endif // !STAT_COLLECTOR_BASE_H

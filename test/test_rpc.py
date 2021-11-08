@@ -7,6 +7,7 @@ import unittest
 
 
 class TestRPC(StatsTest):
+
     def test_rpc(self):
         # Start the daemon:
         d = Daemon()
@@ -21,12 +22,11 @@ class TestRPC(StatsTest):
         result = self.doRPC('add_incremental', name='enemies_killed', event='ENEMY_KILLED')
         self.assertTrue(result['success'])
 
-        # Let's do it again!
+        # v2
         result = self.doRPC('add_incremental', name='enemies_killed', event='ENEMY_KILLED')
         self.assertFalse(result['success'])
         self.assertEquals(result['error'], 'enemies_killed already exists')
 
-        # Oops, forgot a param:
         result = self.doRPC('add_incremental', name='ships_sunk')
         self.assertFalse(result['success'])
         self.assertEquals(result['error'], "invalid or missing 'event' param")
@@ -35,7 +35,7 @@ class TestRPC(StatsTest):
         self.assertFalse(result['success'])
         self.assertEquals(result['error'], "invalid or missing 'name' param")
 
-        # Try sending invalid params:
+        # Non recognized arguments
         result = self.doRPC('add_incremental', name='ships_sunk', event=1)
         self.assertFalse(result['success'])
         self.assertEquals(result['error'], "invalid or missing 'event' param")
@@ -44,7 +44,7 @@ class TestRPC(StatsTest):
         self.assertFalse(result['success'])
         self.assertEquals(result['error'], "invalid or missing 'name' param")
 
-        # Make sure that the list isn't broken:
+        # List check
         result = self.doRPC('list')
         self.assertTrue(result['success'])
         self.assertEquals(result['result'],
@@ -64,18 +64,18 @@ class TestRPC(StatsTest):
 
         # Add a periodic collector:
         result = self.doRPC('add_periodic', name='shard_pop', event='SHARD_POP')
-        self.assertFalse(result['success']) # Oops, forgot a param
+        self.assertFalse(result['success'])
         self.assertEquals(result['error'], "invalid or missing 'period' param")
 
         result = self.doRPC('add_periodic', name='shard_pop', event='SHARD_POP', period='1234 years')
-        self.assertFalse(result['success']) # Good joke
+        self.assertFalse(result['success'])
         self.assertEquals(result['error'], "invalid or missing 'period' param")
 
         result = self.doRPC('list')
         self.assertTrue(result['success'])
         self.assertEquals(result['result'], {})
 
-        # Fine, let's do it right:
+        # Assert true
         result = self.doRPC('add_periodic', name='shard_pop', event='SHARD_POP', period=5)
         self.assertTrue(result['success'])
 

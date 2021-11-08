@@ -14,7 +14,8 @@ using namespace redox;
 Redox rdx;
 DLog dlog;
 
-class RedisDatabase : public Database {
+class RedisDatabase : public Database 
+{
     public:
         RedisDatabase(const std::string& addr, int port,
                       const std::string& prefix) : m_addr(addr),
@@ -117,11 +118,13 @@ class RedisDatabase : public Database {
                 {"LRANGE", m_prefix + ":banned", "0", "-1"}
             );
 
-            if (c.ok()) {
+            if (c.ok()) 
+            {
                 dlog << "get_ban_list success";
                 for (auto id : c.reply())
                     list.insert(atoi(id.c_str()));
-            } else {
+            } else 
+            {
                 dlog << "get_ban_list failed";
             }
 

@@ -3,7 +3,7 @@
 #include "event/eventManager.h"
 
 #include <iostream>
-#include <time.h>
+#include <ctime>
 
 EventCollector::EventCollector()
 {

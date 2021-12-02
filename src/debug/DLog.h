@@ -17,8 +17,7 @@ class DLog
         {
             std::ofstream outfile;
             outfile.open("log.txt", ios_base::app);
-            if (outfile.is_open()) 
-            {
+            if (outfile.is_open()) {
                 outfile << data << "\n";
             }
             outfile.close();

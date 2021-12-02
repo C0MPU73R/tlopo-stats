@@ -9,20 +9,16 @@ void EventManager::send(const Event& event)
 {
     std::vector<event_callback_t> callbacks;
 
-    for (auto& it : m_events)
-    {
-        for (auto& it2 : it.second)
-        {
-            if (it2.first == event.type)
-            {
+    for (auto& it : m_events) {
+        for (auto& it2 : it.second) {
+            if (it2.first == event.type) {
                 auto callback = it2.second;
                 callbacks.push_back(callback);
             }
         }
     }
 
-    for (auto& cb : callbacks)
-    {
+    for (auto& cb : callbacks) {
         cb(event);
     }
 }

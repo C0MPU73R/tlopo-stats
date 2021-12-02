@@ -42,6 +42,7 @@ class RedisDatabase : public Database
                 {
                     json_error_t error;
                     json_t* value = json_loads(data.c_str(), 0, &error);
+
                     if (!value || !json_is_object(value))
                     {
                         std::cerr << "ignoring invalid data in collectors" << std::endl;
@@ -118,13 +119,11 @@ class RedisDatabase : public Database
                 {"LRANGE", m_prefix + ":banned", "0", "-1"}
             );
 
-            if (c.ok()) 
-            {
+            if (c.ok()) {
                 dlog << "get_ban_list success";
                 for (auto id : c.reply())
                     list.insert(atoi(id.c_str()));
-            } else 
-            {
+            } else {
                 dlog << "get_ban_list failed";
             }
 
@@ -157,13 +156,11 @@ class RedisDatabase : public Database
                 {"HGETALL", m_prefix + ":guilds"}
             );
 
-            if (c.ok())
-            {
+            if (c.ok()) {
                 dlog << "get_guild_map success";
                 auto vec = c.reply();
                 auto it = vec.begin();
-                while (it != vec.end())
-                {
+                while (it != vec.end()) {
                     doid_t k = atoi((*it++).c_str());
                     doid_t v = atoi((*it++).c_str());
                     map[k] = v;
@@ -260,8 +257,7 @@ class RedisDatabase : public Database
         {
             dlog << "add_entry";
             rdx.command<int>({"RPUSH", m_prefix + ":events", data}, [this, data](Command<int>& c) {
-                if (c.ok())
-                {
+                if (c.ok()) {
                     free(data);
                     return;
                 }
@@ -276,8 +272,7 @@ class RedisDatabase : public Database
         {
             dlog << "add_incremental_report";
             rdx.command<std::string>(cmd, [this, cmd](Command<std::string>& c) {
-                if (!c.ok())
-                {
+                if (!c.ok()) {
                     dlog << "add_incremental_report failed";
                     attempt_reconnect_or_abort();
                     add_incremental_report(cmd);
@@ -289,8 +284,7 @@ class RedisDatabase : public Database
         {
             dlog << "set_highscore_entry";
             rdx.command<long long int>(cmd, [this, cmd](Command<long long int>& c) {
-                if (!c.ok())
-                {
+                if (!c.ok()) {
                     dlog << "set_highscore_entry failed";
                     attempt_reconnect_or_abort();
                     set_highscore_entry(cmd);
@@ -301,12 +295,10 @@ class RedisDatabase : public Database
         void attempt_reconnect_or_abort(int max_attempts = 3)
         {
             dlog << "attempt_reconnect_or_abort";
-            for (int i = 1; i <= max_attempts; i++)
-            {
+            for (int i = 1; i <= max_attempts; i++) {
                 std::cerr << "attempting reconnection " << i << "/" << max_attempts << std::endl;
                 std::this_thread::sleep_for(std::chrono::seconds(1));
-                if (rdx.connect(m_addr, m_port))
-                {
+                if (rdx.connect(m_addr, m_port)) {
                     dlog << "reconnected";
                     std::cerr << "reconnected" << std::endl;
                     return;
@@ -321,8 +313,7 @@ class RedisDatabase : public Database
         void connect_or_abort()
         {
             dlog << "connect_or_abort";
-            if (!rdx.connect(m_addr, m_port))
-            {
+            if (!rdx.connect(m_addr, m_port)) {
                 dlog << "unable to connect to Redis server";
                 std::cerr << "unable to connect to Redis server" << std::endl;
                 exit(1);

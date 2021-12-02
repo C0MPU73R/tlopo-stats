@@ -16,14 +16,12 @@ UDPReceiver::UDPReceiver(boost::asio::io_service& io_service, const std::string&
     boost::system::error_code ec;
 
     auto addresses = resolve_address(addr, SOCK_DEFAULT_PORT, io_service, ec);
-    if (ec.value() != 0)
-    {
+    if (ec.value() != 0) {
         std::cerr << "Bad address " << addr << std::endl;
         exit(1);
     }
 
-    m_sock = new udp::socket(io_service, udp::endpoint(addresses[0].address(),
-                                                       addresses[0].port()));
+    m_sock = new udp::socket(io_service, udp::endpoint(addresses[0].address(), addresses[0].port()));
     start_receive();
 }
 
@@ -37,8 +35,7 @@ void UDPReceiver::start_receive()
 
 void UDPReceiver::handle_receive(const boost::system::error_code &ec, std::size_t bytes)
 {
-    if (ec.value() != 0)
-    {
+    if (ec.value() != 0) {
         start_receive();
         return;
     }

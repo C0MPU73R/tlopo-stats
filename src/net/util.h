@@ -1,9 +1,9 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-
-
 #include <boost/asio.hpp>
+#include <vector>
+#include <string>
 
 std::vector<boost::asio::ip::tcp::endpoint> resolve_address(
     const std::string &hostspec, uint16_t port,

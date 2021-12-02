@@ -8,13 +8,11 @@
 #include <iostream>
 
 RPCServer::RPCServer(boost::asio::io_service& io_service, const std::string& addr) :
-    m_io_service(io_service), m_acceptor(io_service)
-{
+    m_io_service(io_service), m_acceptor(io_service) {
     boost::system::error_code ec;
 
     auto addresses = resolve_address(addr, SOCK_DEFAULT_RPC_PORT, io_service, ec);
-    if (ec.value() != 0)
-    {
+    if (ec.value() != 0) {
         std::cerr << "Bad address " << addr << std::endl;
         exit(1);
     }
@@ -23,8 +21,7 @@ RPCServer::RPCServer(boost::asio::io_service& io_service, const std::string& add
     m_acceptor.set_option(tcp::acceptor::reuse_address(true), ec);
     m_acceptor.bind(addresses[0], ec);
     m_acceptor.listen(tcp::socket::max_connections, ec);
-    if (ec.value() != 0)
-    {
+    if (ec.value() != 0) {
         std::cerr << "Failed to listen on " << addr << std::endl;
         exit(1);
     }
@@ -41,8 +38,7 @@ void RPCServer::start_accept()
 
 void RPCServer::handle_accept(tcp::socket* socket, const boost::system::error_code& ec)
 {
-    if (ec)
-    {
+    if (ec) {
         delete socket;
         goto end;
     }

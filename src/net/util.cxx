@@ -6,8 +6,7 @@ using boost::asio::ip::address;
 bool split_port(std::string &ip, uint16_t &port)
 {
     size_t last_colon = ip.rfind(':');
-    if(last_colon == std::string::npos) 
-    {
+    if(last_colon == std::string::npos) {
         return true;
     }
 
@@ -15,24 +14,20 @@ bool split_port(std::string &ip, uint16_t &port)
     // We ignore these unless the IPv6 address is bracketed and the port
     // specification occurs outside of the brackets.
     // (e.g. "[::]:1234")
-    if(std::count(ip.begin(), ip.end(), ':') > 1) 
-    {
+    if(std::count(ip.begin(), ip.end(), ':') > 1) {
         // Assuming IPv6. Let's see if the last colon has a
         // ']' before it.
         // Note that this still can lead to weird inputs getting
         // through, but that'll get caught by a later parsing step. TODO
-        if(ip[last_colon - 1] != ']') 
-        {
+        if(ip[last_colon - 1] != ']') {
             return true;
         }
     }
 
-    try 
-    {
+    try {
         port = std::stoi(ip.substr(last_colon + 1));
         ip = ip.substr(0, last_colon);
-    } catch(std::invalid_argument) 
-    {
+    } catch(std::invalid_argument) {
         return false;
     }
 
@@ -41,20 +36,15 @@ bool split_port(std::string &ip, uint16_t &port)
 
 address parse_address(const std::string &ip, boost::system::error_code &ec)
 {
-    if(ip[0] == '[' && ip[ip.length() - 1] == ']') 
-    {
+    if(ip[0] == '[' && ip[ip.length() - 1] == ']')  {
         return address::from_string(ip.substr(1, ip.length() - 2), ec);
-    } 
-    else 
-    {
+    } else  {
         return address::from_string(ip, ec);
     }
 }
 
-std::vector<tcp::endpoint> resolve_address(
-    const std::string &hostspec, uint16_t port,
-    boost::asio::io_service &io_service, boost::system::error_code &ec)
-{
+std::vector<tcp::endpoint> resolve_address(const std::string &hostspec, uint16_t port,
+    boost::asio::io_service &io_service, boost::system::error_code &ec) {
     std::vector<tcp::endpoint> ret;
 
     std::string host = hostspec;
